@@ -4,6 +4,7 @@ import time as tps
 import math as m
 import time as t
 
+
 # Ecriture en base fractorielle
 
 #1
@@ -249,18 +250,19 @@ def construire(N):
     res=[]
     for k in range(1,N):
         L.append(0)
+    res.append(L)
 
     for k in range(0,N):
         L=successeur(L)
-        print(L)
         res.append(L)
 
     #Remove leading 0
-    # for k in range(0,len(res)):
-    #     for i in range(len(res[k])-1,0,-1):
-    #         if(res[k][i]==0):
-    #             res[k].pop()
-    #     print(res[k])
+    for k in range(0,len(res)):
+        for i in range(len(res[k])-1,0,-1):
+            if(res[k][i]==0):
+                res[k].pop()
+            else:
+                break
     return(res)
 
 
@@ -279,3 +281,14 @@ print(construire(10))
 # print(codage_liste([12,21]))
 #
 # print(decodage_liste(110101010110011011010100001010110010011))
+
+import unittest
+class MyTest(unittest.TestCase):
+    def test_verif_factor(self):
+        self.assertFalse(verif_facto([1,2,0]))
+        self.assertFalse(verif_facto([1, -2]))
+        self.assertFalse(verif_facto([3, 2]))
+        self.assertTrue(verif_facto([1, 2,3]))
+
+unittest.main()
+
