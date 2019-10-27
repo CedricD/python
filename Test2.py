@@ -1,13 +1,7 @@
 ## DM n°1
 
-import time as tps
 import math as m
 import time as t
-
-
-# Ecriture en base fractorielle
-
-#1
 
 def verif_facto(L):
     if L[-1]==0:
@@ -19,7 +13,6 @@ def verif_facto(L):
             return(False)
     else:
         return(True)
-
 
 def base_factorielle_versbase10(L):
     res=0
@@ -42,7 +35,6 @@ def CreerTabFacto(n):
         #condition iii)
         if fact>n:
             return(res)
-
 
 def recherche(k,t):
     if t[0]>k:
@@ -70,7 +62,7 @@ def recherche2(k,t):
     return(min_index)
 
 def base10_vers_basefactorielle(n):
-    start_time=t.time()*1000000#en microsecondes
+    start_time=t.time()*1000000 #en microsecondes
     #t.sleep(5), permet d'attendre 5s
     #liste des facto jusqu'à la première valeur plus grande que n
     l_fact=[]
@@ -78,8 +70,7 @@ def base10_vers_basefactorielle(n):
     while (m.factorial(max_top_index) <= n):
        max_top_index+=1
        l_fact.append(m.factorial(max_top_index))
-      #print('ajout d une valeur')
-    #print('la premiere liste est prete')
+
     #Initialisation des deux listes: res et enleve dernière valeur de l_fact
     top_index=recherche2(n,l_fact)
     res=[]
@@ -87,12 +78,9 @@ def base10_vers_basefactorielle(n):
        res.append(0)
     l_fact.pop()
 
-    #print('[INFO] - Les lsites sont pretes')
-
     # Decomposition
     deltan=n
     for k in range(len(res)-1,-1,-1):      #On parcourt la liste l_fact du plus grand au plus petit. Le range prend -1 comme second paramètre pour arriver jusqu'à 0. Le 3ème paramètre indique que l'on decremente de 1
-        #print(k)
         l=1
         while (deltan-l*l_fact[k])>=0:
             l+=1
@@ -102,58 +90,7 @@ def base10_vers_basefactorielle(n):
             res[k]=l-1
     diff_time=t.time()*1000000-start_time
     print('[INFO] - La durée est de %d microsecondes' %(diff_time))
-    return
     return(res)
-
-
-
-    # #étape 0
-    # p=0
-    # for k in range(1,n):
-    #     if n-k*(l_fact[-1])<0:
-    #         p=k-1
-    #         break
-    #     n1=n-p*(l_fact[-1])
-    #     print(n1)
-    #     print(p)
-    # res[-1]=p
-    # print(res)
-    # #étape 1
-    # p=0
-    # for k in range(1,n):
-    #     if n1-k*(fact[-1])<0:
-    #         p=k-1
-    #         break
-    #     n2=n-k*(fact[-1])
-    #     return(n2)
-    #     return(p)
-    # res[-2]=p
-    #
-    # #Généralement
-    # for i in range(1,n):
-    #     for k in range(1,n):
-    #         if n-k*(l_fact[-1])<0:
-    #             p=k-1
-    #             res[-1-(k-1)]
-    #         n=n-k*(fact[-1])
-
-
-
-    #Variables pour les itérations
-    delta=n
-    top_index=recherche(delta,fact)
-    top_fact=fact[top_index]
-    k=top_index
-
-    #calcul de ap
-    i=0
-    while True:
-        if i*top_fact>delta:
-            break
-        i=i+1
-    res[k]=i-1
-    delta=delta-res[k]*top_fact
-
 
 def tab_fibo(N):
     if(N==1):
@@ -267,28 +204,64 @@ def construire(N):
 
 
 print(construire(10))
-# print(successeur([1,0,1,0,0,1]))
-#
-# print('-----------------------------')
-# print(tab_fibo(1))
-# print(tab_fibo(2))
-# print(tab_fibo(3))
-# print(tab_fibo(4))
-# print(tab_fibo(5))
-# print(tab_fibo(6))
-# print('-----------------------------')
-#
-# print(codage_liste([12,21]))
-#
-# print(decodage_liste(110101010110011011010100001010110010011))
 
 import unittest
+
+#@Theo - JE TE LAISSE METTRE LES TESTS LES PLUS PERTINENTS POSSIBLE
 class MyTest(unittest.TestCase):
     def test_verif_factor(self):
-        self.assertFalse(verif_facto([1,2,0]))
+        self.assertFalse(verif_facto([1, 2, 0]))
         self.assertFalse(verif_facto([1, -2]))
         self.assertFalse(verif_facto([3, 2]))
-        self.assertTrue(verif_facto([1, 2,3]))
+        self.assertTrue(verif_facto([1, 2, 3]))
 
-unittest.main()
+    def test_base_factorielle_versbase10(self):
+        self.assertEqual(base_factorielle_versbase10([1, 1, 1, 1]), 33)
+
+    def test_CreerTabFacto(self):
+        self.assertListEqual(CreerTabFacto(1000), [1, 1, 2, 6, 24, 120, 720])
+
+    def test_recherche(self):
+        self.assertEqual(recherche(141, [1, 1, 2, 6, 24, 120, 720]), 5)
+
+    def test_recherche2(self):
+        self.assertEqual(recherche2(141, [1, 1, 2, 6, 24, 120, 720]), 5)
+
+    def test_base10_vers_basefactorielle(self):
+        self.assertListEqual(base10_vers_basefactorielle(1441),[1, 0, 0, 0, 0, 2])
+
+    def test_tab_fibo(self):
+        self.assertListEqual(tab_fibo(10),[1, 2, 3, 5, 8, 13, 21, 34, 55, 89])
+
+    def test_decodage_nb(self):
+        self.assertEqual(decodage_nb([1,1,1,1,1,1]),32)
+
+    def test_recherche_plus_grand(self):
+        self.assertEqual(recherche_plus_grand(200),12)
+
+    def test_codage_nb(self):
+        self.assertListEqual(codage_nb(1000),[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+
+    def test_codage_liste(self):
+        self.assertEqual(codage_liste([10,11,12]),"010011001011101011")
+
+    def test_decodage_liste(self):
+        self.assertListEqual(decodage_liste("010011001011101011"),[10,11,12])
+
+    def test_premier00(self):
+        self.assertEqual(premier00([0,1,1,0,0,1]),3)
+
+    def test_successeur(self):
+        self.assertListEqual(successeur([0,1,1,0,0,1]),[0, 0, 0, 1, 0, 1])
+
+    def test_construire(self):
+        self.assertListEqual(construire(10),[[0], [1], [0, 1], [0, 0, 1], [1, 0, 1], [0, 0, 0, 1], [1, 0, 0, 1], [0, 1, 0, 1], [0, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 0, 1]])
+
+def myunittest():
+    unittest.main()
+
+
+myunittest()
+
+
 
