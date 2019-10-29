@@ -128,13 +128,13 @@ def recherche_plus_grand(n):
     top_index = 1
     while True:
         if tab_fibo(top_index)[-1] > n:
-            return top_index
+            return top_index - 2  # Il faut retirer un car on est un cran au dessus au moment du dernier if + Il faut retirer un car tab_fibo(top_index) va jusqu'à F rang top_index-1
         top_index += 1
 
 
 def codage_nb(n):
     top_index = recherche_plus_grand(n)
-    l_fact = tab_fibo(top_index - 1)
+    l_fact = tab_fibo(top_index + 1)
     l_ai = []
     for k in range(0, len(l_fact)):
         l_ai.append(0)

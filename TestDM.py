@@ -33,13 +33,13 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(DM.decodage_nb([1, 1, 1, 1, 1, 1]), 32)
 
     def test_recherche_plus_grand(self):
-        self.assertEqual(DM.recherche_plus_grand(200), 12)
+        self.assertEqual(DM.recherche_plus_grand(200), 10)
 
     def test_codage_nb(self):
         self.assertListEqual(DM.codage_nb(1000), [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 
     def test_codage_liste(self):
-        self.assertEqual(DM.codage_liste([10, 11, 12]), "010011001011101011")
+        self.assertEqual(DM.codage_liste([1, 10, 100]), "1101001100101000011")
 
     def test_decodage_liste(self):
         self.assertListEqual(DM.decodage_liste("010011001011101011"), [10, 11, 12])
